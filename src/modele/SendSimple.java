@@ -1,4 +1,4 @@
-/*package modele;
+package modele;
 
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -44,4 +44,4 @@ public class SendSimple {
     }
 
 
-}*/
+}

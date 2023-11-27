@@ -3,6 +3,7 @@ package modele;
 import javax.activation.*;
 import javax.mail.*;
 import javax.mail.internet.*;
+import javax.swing.*;
 import java.io.File;
 import java.util.*;
 import java.util.Properties;
@@ -36,26 +37,18 @@ public class SendMultiPart {
             msgBP.setText(texteAcc);
             msgMP.addBodyPart(msgBP);
 
-            // 2ème composante : le fichier Word
-            System.out.println("2ème composante");
-            String nf = "d:\\notes-java-2001\\BienvenueAInpres.doc";
-            msgBP = new MimeBodyPart();
-            DataSource so = new FileDataSource (nf);
-            msgBP.setDataHandler (new DataHandler (so));
-            msgBP.setFileName(nf);
-            msgMP.addBodyPart(msgBP);
-            // 3ème composante : l'image
-            System.out.println("3ème composante");
-            nf = "d:\\notes-java-2001\\logo-INPRES.bmp";
-            msgBP = new MimeBodyPart();
-            so = new FileDataSource (nf);
-            msgBP.setDataHandler (new DataHandler (so));
-            msgBP.setFileName(nf);
-            msgMP.addBodyPart(msgBP);
+            //ajout des eventuelles pièces jointes
+            for(File file : listFichier)
+            {
+                ajouterPieceJointe(msgMP, file);
+            }
+
+            //envoie du message
             msg.setContent(msgMP);
             System.out.println("Envoi du message");
             Transport.send(msg);
             System.out.println("Message envoyé");
+
         }
         catch (AddressException e)
         {
@@ -65,5 +58,16 @@ public class SendMultiPart {
         {
             System.out.println("Errreur sur message : " + ex.getMessage());
         }
-}
+
+
+    }
+
+    private void ajouterPieceJointe(Multipart msg, File file) throws MessagingException {
+        BodyPart pieceJointe = new MimeBodyPart();
+        DataSource so = new FileDataSource (file.getPath());
+        pieceJointe.setDataHandler (new DataHandler (so));
+        pieceJointe.setFileName(file.getName());
+        msg.addBodyPart(pieceJointe);
+
+    }
 }
