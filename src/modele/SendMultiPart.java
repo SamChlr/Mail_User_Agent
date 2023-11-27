@@ -1,4 +1,4 @@
-package model;
+package modele;
 
 import javax.activation.*;
 import javax.mail.*;

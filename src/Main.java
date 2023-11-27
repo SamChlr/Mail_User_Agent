@@ -1,5 +1,13 @@
+import controleur.ControleurBoiteMail;
+import controleur.ControleurEnvoie;
+import vue.WindowMail;
+
 public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
+    public static void main(String[] args)
+    {
+        WindowMail fenetre = new WindowMail();
+        ControleurBoiteMail controleur = new ControleurBoiteMail (fenetre);
+        fenetre.setControleur(controleur);
+        fenetre.setVisible(true);
     }
 }
