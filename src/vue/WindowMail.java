@@ -1,8 +1,11 @@
 package vue;
 
 import controleur.ControleurBoiteMail;
+import modele.*;
 
+import javax.mail.Message;
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class WindowMail extends JFrame{
     private JPanel JPanelFenetre;
@@ -11,6 +14,9 @@ public class WindowMail extends JFrame{
     private JTextField login_textField;
     private JPasswordField passwordPasswordField;
     private JButton connexionButton;
+
+    // variable liée au mail
+    private ArrayList<Mail> MailCourant = new ArrayList<>();
 
     public WindowMail()
     {
@@ -29,4 +35,23 @@ public class WindowMail extends JFrame{
         nouveauMailButton.addActionListener(c);
         connexionButton.addActionListener(c);
     }
+
+    public void setMailCourant(ArrayList<Mail> mail)
+    {
+        MailCourant = mail;
+    }
+
+    public  ArrayList<Mail> getMailCourant(){ return MailCourant;}
+
+    public String getLogin()
+    {
+        return login_textField.getText();
+    }
+
+    public String getPassword()
+    {
+        return passwordPasswordField.getText();
+    }
+
+
 }

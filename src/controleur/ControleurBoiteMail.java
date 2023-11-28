@@ -2,17 +2,24 @@ package controleur;
 
 import vue.WindowMail;
 import vue.WindowNouveauMail;
+import modele.*;
 
+import javax.mail.MessagingException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
+import java.util.ArrayList;
 
 public class ControleurBoiteMail implements ActionListener, WindowListener {
     private final WindowMail fenetre;
-    private int logged = 0;
+    private int logged = 0;;
+
+    private GestionConnexion connexion;
+
+
 
     public ControleurBoiteMail(WindowMail display)
     {
@@ -25,6 +32,17 @@ public class ControleurBoiteMail implements ActionListener, WindowListener {
         if(e.getActionCommand().equals("connexion"))
         {
             //action de vérification du login et MDP
+            connexion.getInstance();
+            connexion.setPassword(fenetre.getPassword());
+            connexion.setUser(fenetre.getLogin());
+            try {
+                connexion.connexion();
+            } catch (MessagingException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            Surveillance thread = new Surveillance(fenetre, connexion);
+
         }
         if(e.getActionCommand().equals("nouveau"))
         {
