@@ -42,6 +42,7 @@ public class ControleurBoiteMail implements ActionListener, WindowListener {
             }
 
             Surveillance thread = new Surveillance(fenetre, connexion.getInstance());
+            thread.start();
             fenetre.isConnected();
 
         }

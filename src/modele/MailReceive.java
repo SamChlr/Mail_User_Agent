@@ -59,7 +59,7 @@ public class MailReceive {
                 System.out.println("Message n° " + i);
                 if(mail == null)
                     System.out.println("ALEDDD C VIDEEEE");
-                System.out.println("Expéditeur : " + mail.getFrom() [0]);
+                System.out.println("Expéditeur : " + mail.getFrom());
                 nouvMail.setExpediteur(String.valueOf(mail.getFrom() [0]));
                 nouvMail.setDestinataire(mail.getRecipients(Message.RecipientType.TO).getClass().getName());
                 System.out.println("Sujet = " + mail.getSubject());
