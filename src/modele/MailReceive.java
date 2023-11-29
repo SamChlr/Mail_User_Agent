@@ -11,11 +11,14 @@ public class MailReceive {
     private Session sess;
     private Store st;
 
+    private  Folder folder;
 
-    public MailReceive(Session se, Store s)
+
+    public MailReceive(Session se, Store s, Folder f)
     {
         sess = se;
         st = s;
+        folder = f;
     }
 
     //getters and setters
@@ -43,13 +46,10 @@ public class MailReceive {
         try
         {
 
-            System.out.println("Obtention d'un objet folder");
-            Folder f = st.getFolder("INBOX");
-            f.open(Folder.READ_ONLY);
             System.out.println("Obtention des messages");
-            Message msg[] = f.getMessages();
-            System.out.println("Nombre de messages : " + f.getMessageCount());
-            System.out.println("Nombre de nouveaux messages : " + f.getNewMessageCount());
+            Message msg[] = folder.getMessages();
+            System.out.println("Nombre de messages : " + folder.getMessageCount());
+            System.out.println("Nombre de nouveaux messages : " + folder.getNewMessageCount());
 
             System.out.println("Liste des messages : ");
             int j = 0;
@@ -71,6 +71,8 @@ public class MailReceive {
             {
                 Mail nouvMail = new Mail();
                 System.out.println("Message n° " + j);
+                if(mail == null)
+                    System.out.println("ALEDDD C VIDEEEE");
                 System.out.println("Expéditeur : " + mail.getFrom()[0]);
                 nouvMail.setExpediteur(String.valueOf(mail.getFrom() [0]));
                 nouvMail.setDestinataire(mail.getRecipients(Message.RecipientType.TO).getClass().getName());
@@ -88,6 +90,8 @@ public class MailReceive {
                     Multipart multipart = (Multipart) mail.getContent();
 
 
+
+
                     for(j = 0; j < multipart.getCount(); j++)
                     {
                         BodyPart bodyPart = multipart.getBodyPart(j);
@@ -96,28 +100,21 @@ public class MailReceive {
                         {
                             nouvMail.setTexte(bodyPart.getContent().toString());
                         }
-                        if (bodyPart.getDisposition() != null && bodyPart.getDisposition().equalsIgnoreCase(Part.ATTACHMENT)) {
+                        if(bodyPart.getDisposition() != null && bodyPart.getDisposition().equalsIgnoreCase(Part.ATTACHMENT) )
+                        {
                             InputStream is = bodyPart.getInputStream();
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
                             int c;
                             while ((c = is.read()) != -1) baos.write(c);
                             baos.flush();
-
-                            String nomFichier = bodyPart.getFileName();
-                            // Construire le chemin complet du fichier
-                            File dossierCible = new File("../Mail_User_Agent/PiecesJointes");
-                            if (!dossierCible.exists()) {
-                                dossierCible.mkdirs(); // Créer le dossier s'il n'existe pas
-                            }
-                            File fichierDestination = new File(dossierCible, nomFichier);
-
-                            // Sauvegarder le fichier
-                            FileOutputStream fos = new FileOutputStream(fichierDestination);
+                            String nf = bodyPart.getFileName();
+                            FileOutputStream fos =new FileOutputStream(nf);
                             baos.writeTo(fos);
                             fos.close();
 
-                            System.out.println("Pièce attachée " + nomFichier + " récupérée dans " + fichierDestination.getAbsolutePath());
-                            nouvMail.ajouterPieceJointe(fichierDestination.getAbsolutePath());
+                            System.out.println("Pièce attachée " + nf + " récupérée");
+                            nouvMail.ajouterPieceJointe(nf);
+
                         }
 
                     }

@@ -28,6 +28,7 @@ public class WindowMail extends JFrame{
     private JPanel affichageMailJPanel;
     private JList listPJ;
     private JTextArea contenuMailTextArea;
+    private JScrollPane pjJScrollPane;
     private JScrollPane contenuJScrollPane;
 
     private DefaultTableModel modelMail;
@@ -59,6 +60,7 @@ public class WindowMail extends JFrame{
         mailTable.setModel(modelMail);
         mailJScrollPane.setViewportView(mailTable);
 
+        pjJScrollPane.setViewportView(listPJ);
         contenuJScrollPane.setViewportView(contenuMailTextArea);
 
 
@@ -151,7 +153,6 @@ public class WindowMail extends JFrame{
             DefaultListModel<String> listModel = new DefaultListModel<>();
             for (String pieceJointe : mail.getPieceJointe()) {
                 listModel.addElement(pieceJointe);
-                System.out.println("MAAAAA PJ : "+pieceJointe);
             }
             listPJ.setModel(listModel);
         }
@@ -206,3 +207,4 @@ public class WindowMail extends JFrame{
     }
 
 }
+

@@ -23,7 +23,7 @@ public class Surveillance extends Thread {
     {
         while (!Thread.currentThread().interrupted())
         {
-            MailReceive rcv = new MailReceive(connexion.getSession(),connexion.getSt());
+            MailReceive rcv = new MailReceive(connexion.getSession(),connexion.getSt(),connexion.getFolder());
             ArrayList<Mail> newMailList = rcv.receiveMail();
             if(mailCourant != null && newMailList != null && mailCourant.size() != newMailList.size())
             {

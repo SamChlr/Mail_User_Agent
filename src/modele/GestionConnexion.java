@@ -11,6 +11,8 @@ public class GestionConnexion {
     private String user;
     private String password;
 
+    private Folder folder;
+
     private Store st;
 
     public GestionConnexion()
@@ -44,6 +46,9 @@ public class GestionConnexion {
             System.out.println("Obtention d'un objet store");
             st = session.getStore("pop3");
             st.connect(host, user, password);
+            System.out.println("Obtention d'un objet folder");
+            folder = st.getFolder("INBOX");
+            folder.open(Folder.READ_ONLY);
             return true;
         }
         else
@@ -52,6 +57,15 @@ public class GestionConnexion {
 
     //getters and setter
     //session
+
+    public Folder getFolder() {
+        return folder;
+    }
+
+    public void setFolder(Folder folder) {
+        this.folder = folder;
+    }
+
     public Session getSession() {
         return session;
     }
