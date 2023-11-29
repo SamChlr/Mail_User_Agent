@@ -1,7 +1,11 @@
 <component name="libraryTable">
   <library name="javax.activation-1.2.0">
     <CLASSES>
+<<<<<<< HEAD
       <root url="jar://$PROJECT_DIR$/lib/javax.activation-1.2.0.jar!/" />
+=======
+      <root url="jar://$PROJECT_DIR$/../javax.activation-1.2.0.jar!/" />
+>>>>>>> Quasi ok , reste à mettre à jour les affichage de mail
     </CLASSES>
     <JAVADOC />
     <SOURCES />
