@@ -39,6 +39,7 @@ public class WindowMail extends JFrame{
     public void setMailCourant(ArrayList<Mail> mail)
     {
         MailCourant = mail;
+        updateMail();
     }
 
     public  ArrayList<Mail> getMailCourant(){ return MailCourant;}
@@ -51,6 +52,11 @@ public class WindowMail extends JFrame{
     public String getPassword()
     {
         return passwordPasswordField.getText();
+    }
+
+    private void updateMail()
+    {
+        //à faire : mettre à jour la table + notification
     }
 
 

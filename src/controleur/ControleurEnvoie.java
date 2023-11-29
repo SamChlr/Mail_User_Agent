@@ -3,16 +3,18 @@ package controleur;
 import modele.*;
 import vue.WindowNouveauMail;
 
+import javax.mail.MessagingException;
 import javax.swing.JFileChooser;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ControleurEnvoie implements ActionListener, WindowListener {
     private final WindowNouveauMail fenetre;
-    private String cheminPieceJointe = "";
+    private ArrayList<File> pieceJointe = new ArrayList<>();
 
     public ControleurEnvoie(WindowNouveauMail display)
     {
@@ -37,16 +39,41 @@ public class ControleurEnvoie implements ActionListener, WindowListener {
             if (result == JFileChooser.APPROVE_OPTION) {
                 // Récupérez le fichier sélectionné
                 File selectedFile = fileChooser.getSelectedFile();
-                cheminPieceJointe = selectedFile.getAbsolutePath();
-                System.out.println("Fichier sélectionné : " + cheminPieceJointe);
+                pieceJointe.add(selectedFile);
+                System.out.println("Fichier sélectionné : " + selectedFile.getAbsolutePath());
 
                 // Mettez à jour le JLabel dans la fenêtre pour afficher le nom du fichier
-                fenetre.getNomPJ_JLabel().setText(selectedFile.getName());
+                //fenetre.getNomPJ_JLabel().setText(selectedFile.getName());
             }
         }
         if(e.getActionCommand().equals("envoyer"))
         {
 
+
+            if (pieceJointe.size() == 0) {
+                SendSimple envoie = new SendSimple(GestionConnexion.getInstance().getSession());
+                String exp = GestionConnexion.getInstance().getUser() + "@" + GestionConnexion.getHost();
+                String dest = fenetre.getDest_textField().getText();
+                String Sujet = fenetre.getObjet_textField().getText();
+                String texte = fenetre.getMail_textArea().getText();
+
+                envoie.SendMailSimple(exp, dest, Sujet, texte);
+            }
+            else
+            {
+                SendMultiPart envoie = new SendMultiPart(GestionConnexion.getInstance().getSession());
+                String exp = GestionConnexion.getInstance().getUser() + "@" + GestionConnexion.getHost();
+                String dest = fenetre.getDest_textField().getText();
+                String Sujet = fenetre.getObjet_textField().getText();
+                String texte = fenetre.getMail_textArea().getText();
+                try {
+                    envoie.SendMailMultiPart(exp,dest,Sujet,texte,pieceJointe);
+                } catch (MessagingException ex) {
+                    throw new RuntimeException(ex);
+
+                }
+
+            }
         }
 
     }

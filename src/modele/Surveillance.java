@@ -21,6 +21,21 @@ public class Surveillance extends Thread {
     @Override
     public void run()
     {
+        while (!Thread.currentThread().interrupted())
+        {
+            MailReceive rcv = new MailReceive(connexion.getSession(),connexion.getSt());
+            ArrayList<Mail> newMailList = rcv.receiveMail();
+            if(mailCourant.size() != newMailList.size())
+            {
+                mailCourant = newMailList;
+                vue.setMailCourant(mailCourant);
+            }
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
     }
 
