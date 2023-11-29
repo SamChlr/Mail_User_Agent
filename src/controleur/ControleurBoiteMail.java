@@ -33,15 +33,16 @@ public class ControleurBoiteMail implements ActionListener, WindowListener {
         {
             //action de vérification du login et MDP
             connexion.getInstance();
-            connexion.setPassword(fenetre.getPassword());
-            connexion.setUser(fenetre.getLogin());
+            connexion.getInstance().setPassword(fenetre.getPassword());
+            connexion.getInstance().setUser(fenetre.getLogin());
             try {
-                connexion.connexion();
+                connexion.getInstance().connexion();
             } catch (MessagingException ex) {
                 throw new RuntimeException(ex);
             }
 
-            Surveillance thread = new Surveillance(fenetre, connexion);
+            Surveillance thread = new Surveillance(fenetre, connexion.getInstance());
+            fenetre.isConnected();
 
         }
         if(e.getActionCommand().equals("nouveau"))
