@@ -29,7 +29,6 @@ public class SendSimple {
             String texte = text;
             MimeMessage msg = new MimeMessage (sess);
             msg.setFrom (new InternetAddress (exp));
-            System.out.println("!!!!!!!!!! from: " + msg.getFrom()[0]);
             msg.setRecipient (Message.RecipientType.TO, new InternetAddress (dest));
             msg.setSubject(sujet);
             msg.setText (texte);

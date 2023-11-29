@@ -1,7 +1,5 @@
 import controleur.ControleurBoiteMail;
-import controleur.ControleurEnvoie;
 import vue.WindowMail;
-
 public class Main {
     public static void main(String[] args)
     {

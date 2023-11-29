@@ -48,8 +48,6 @@ public class ControleurEnvoie implements ActionListener, WindowListener {
         }
         if(e.getActionCommand().equals("envoyer"))
         {
-
-
             if (pieceJointe.size() == 0) {
                 SendSimple envoie = new SendSimple(GestionConnexion.getInstance().getSession());
                 String exp = GestionConnexion.getInstance().getUser() + "@" + GestionConnexion.getHost();
@@ -74,6 +72,13 @@ public class ControleurEnvoie implements ActionListener, WindowListener {
                 }
 
             }
+            fenetre.getDest_textField().setText("");
+            fenetre.getObjet_textField().setText("");
+            fenetre.getMail_textArea().setText("");
+            // Créer un modèle de liste vide et le définir pour listPJ
+            pieceJointe.clear();
+            fenetre.setListPJ(pieceJointe);
+
         }
 
     }
