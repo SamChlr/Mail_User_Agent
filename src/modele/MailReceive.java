@@ -11,11 +11,14 @@ public class MailReceive {
     private Session sess;
     private Store st;
 
+    private  Folder folder;
 
-    public MailReceive(Session se, Store s)
+
+    public MailReceive(Session se, Store s, Folder f)
     {
         sess = se;
         st = s;
+        folder = f;
     }
 
     //getters and setters
@@ -43,13 +46,10 @@ public class MailReceive {
         try
         {
 
-            System.out.println("Obtention d'un objet folder");
-            Folder f = st.getFolder("INBOX");
-            f.open(Folder.READ_ONLY);
             System.out.println("Obtention des messages");
-            Message msg[] = f.getMessages();
-            System.out.println("Nombre de messages : " + f.getMessageCount());
-            System.out.println("Nombre de nouveaux messages : " + f.getNewMessageCount());
+            Message msg[] = folder.getMessages();
+            System.out.println("Nombre de messages : " + folder.getMessageCount());
+            System.out.println("Nombre de nouveaux messages : " + folder.getNewMessageCount());
 
             System.out.println("Liste des messages : ");
             int j = 0;

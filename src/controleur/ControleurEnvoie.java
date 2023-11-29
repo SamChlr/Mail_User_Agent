@@ -30,7 +30,7 @@ public class ControleurEnvoie implements ActionListener, WindowListener {
             JFileChooser fileChooser = new JFileChooser();
 
             // Définissez le répertoire de démarrage, les filtres de fichier, etc.
-            fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.home.document")));
 
             // Affichez le dialogue de sélection de fichier
             int result = fileChooser.showOpenDialog(fenetre);
@@ -48,8 +48,6 @@ public class ControleurEnvoie implements ActionListener, WindowListener {
         }
         if(e.getActionCommand().equals("envoyer"))
         {
-
-
             if (pieceJointe.size() == 0) {
                 SendSimple envoie = new SendSimple(GestionConnexion.getInstance().getSession());
                 String exp = GestionConnexion.getInstance().getUser() + "@" + GestionConnexion.getHost();
@@ -70,9 +68,7 @@ public class ControleurEnvoie implements ActionListener, WindowListener {
                     envoie.SendMailMultiPart(exp,dest,Sujet,texte,pieceJointe);
                 } catch (MessagingException ex) {
                     throw new RuntimeException(ex);
-
                 }
-
             }
         }
 

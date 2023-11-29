@@ -64,7 +64,7 @@ public class ControleurBoiteMail implements ActionListener, WindowListener {
     public void windowOpened(WindowEvent e) {}
 
     @Override
-    public void windowClosing(WindowEvent e) {}
+    public void windowClosing(WindowEvent e) {fenetre.viderDossierPiecesJointes();}
 
     @Override
     public void windowClosed(WindowEvent e) {}

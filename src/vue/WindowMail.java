@@ -148,12 +148,11 @@ public class WindowMail extends JFrame{
         objetMailTextField.setText(mail.getSujet());
         contenuMailTextArea.setText(mail.getTexte());
         // Mettre à jour la liste des pièces jointes si nécessaire
-        if(mail.getPieceJointe().isEmpty()){
+        if(!mail.getPieceJointe().isEmpty()){
             // Affichage des pièces jointes
             DefaultListModel<String> listModel = new DefaultListModel<>();
             for (String pieceJointe : mail.getPieceJointe()) {
                 listModel.addElement(pieceJointe);
-                System.out.println("MAAAAA PJ : "+pieceJointe);
             }
             listPJ.setModel(listModel);
         }
