@@ -7,8 +7,8 @@ import javax.swing.*;
 import java.io.File;
 import java.util.*;
 import java.util.Properties;
-public class SendMultiPart {
 
+public class SendMultiPart {
     private Session session;
 
     public  SendMultiPart(Session sess)
