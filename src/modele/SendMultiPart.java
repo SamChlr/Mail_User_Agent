@@ -10,7 +10,6 @@ import java.util.Properties;
 
 public class SendMultiPart {
     private Session session;
-    private static String  host = "u2.tech.hepl.local";
 
     public  SendMultiPart(Session sess)
     {
@@ -20,9 +19,6 @@ public class SendMultiPart {
     public void SendMailMultiPart(String de, String vers, String titre, String text, ArrayList<File> listFichier) throws MessagingException {
         try
         {
-            Properties prop = System.getProperties();
-            prop.put("mail.smtp.host", host);
-            session = Session.getDefaultInstance(prop, null);
             System.out.println("Création du message");
             String exp = de;
             String dest = vers;
