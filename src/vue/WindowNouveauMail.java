@@ -3,6 +3,8 @@ package vue;
 import controleur.ControleurEnvoie;
 
 import javax.swing.*;
+import java.io.File;
+import java.util.ArrayList;
 
 public class WindowNouveauMail extends JFrame{
     private JPanel JPanelNouveauMail;
@@ -10,8 +12,8 @@ public class WindowNouveauMail extends JFrame{
     private JTextField objet_textField;
     private JButton ajouterPieceJointeButton;
     private JTextArea mail_textArea;
-    private JLabel NomPJ_JLabel;
     private JButton envoyerButton;
+    private JList listPJ;
 
     public WindowNouveauMail()
     {
@@ -44,7 +46,15 @@ public class WindowNouveauMail extends JFrame{
         return mail_textArea;
     }
 
-    public JLabel getNomPJ_JLabel() {
-        return NomPJ_JLabel;
+    public JList getListPJ() {
+        return listPJ;
+    }
+
+    public void setListPJ(ArrayList<File> pieceJointe){
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (File nomFichier : pieceJointe) {
+            model.addElement(nomFichier.getName());
+        }
+        listPJ.setModel(model);
     }
 }

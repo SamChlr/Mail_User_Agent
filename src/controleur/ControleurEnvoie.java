@@ -42,8 +42,8 @@ public class ControleurEnvoie implements ActionListener, WindowListener {
                 pieceJointe.add(selectedFile);
                 System.out.println("Fichier sélectionné : " + selectedFile.getAbsolutePath());
 
-                // Mettez à jour le JLabel dans la fenêtre pour afficher le nom du fichier
-                //fenetre.getNomPJ_JLabel().setText(selectedFile.getName());
+                // Mettez à jour le JList dans la fenêtre pour afficher les noms du fichier
+                fenetre.setListPJ(pieceJointe);
             }
         }
         if(e.getActionCommand().equals("envoyer"))
