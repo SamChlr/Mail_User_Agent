@@ -13,7 +13,7 @@ import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.ArrayList;
 
-public class ControleurBoiteMail implements ActionListener, WindowListener {
+public class ControleurBoiteMail implements ActionListener, WindowListener{
     private final WindowMail fenetre;
     private int logged = 0;;
 
@@ -42,6 +42,7 @@ public class ControleurBoiteMail implements ActionListener, WindowListener {
             }
 
             Surveillance thread = new Surveillance(fenetre, connexion);
+            fenetre.isConnected();
 
         }
         if(e.getActionCommand().equals("nouveau"))
