@@ -25,10 +25,17 @@ public class Surveillance extends Thread {
         {
             MailReceive rcv = new MailReceive(connexion.getSession(),connexion.getSt());
             ArrayList<Mail> newMailList = rcv.receiveMail();
-            if(mailCourant.size() != newMailList.size())
+            if(mailCourant != null && newMailList != null && mailCourant.size() != newMailList.size())
             {
                 mailCourant = newMailList;
                 vue.setMailCourant(mailCourant);
+                System.out.println("Surveillance : NOUVEAU MAIL");
+            }
+            if(mailCourant == null && newMailList != null)
+            {
+                mailCourant = newMailList;
+                vue.setMailCourant(mailCourant);
+                System.out.println("Surveillance : NOUVEAU MAIL");
             }
             try {
                 Thread.sleep(5000);

@@ -1,5 +1,6 @@
 package modele;
 
+import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
@@ -8,6 +9,7 @@ import javax.activation.*;
 public class SendSimple {
 
     private Session sess;
+    private static String  host = "u2.tech.hepl.local";
 
     public SendSimple(Session s)
     {
@@ -17,6 +19,9 @@ public class SendSimple {
     public void SendMailSimple(String de, String vers, String titre, String text){
         try
         {
+            Properties prop = System.getProperties();
+            prop.put("mail.smtp.host", host);
+            sess = Session.getDefaultInstance(prop, null);
             System.out.println("Création du message");
             String exp = de;
             String dest = vers;

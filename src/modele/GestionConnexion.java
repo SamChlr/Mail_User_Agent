@@ -5,7 +5,7 @@ import javax.mail.*;
 import javax.activation.*;
 public class GestionConnexion {
 
-    private static GestionConnexion instance;
+    private static GestionConnexion instance = null;
     private Session session;
     private static String  host = "u2.tech.hepl.local";
     private String user;
@@ -16,6 +16,8 @@ public class GestionConnexion {
     public GestionConnexion()
     {
         Properties prop = System.getProperties();
+        prop.put("mail.pop3.host", host);
+        prop.put("mail.disable.top", true);
         System.out.println("Création d'une session mail");
         session = Session.getDefaultInstance(prop, null);
 

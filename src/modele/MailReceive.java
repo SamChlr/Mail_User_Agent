@@ -52,26 +52,28 @@ public class MailReceive {
             System.out.println("Nombre de nouveaux messages : " + f.getNewMessageCount());
 
             System.out.println("Liste des messages : ");
-            for (int i=0; i<msg.length; i++)
+            int i = 0;
+            for (Message mail : msg)
             {
                 Mail nouvMail = new Mail();
                 System.out.println("Message n° " + i);
-
-                System.out.println("Expéditeur : " + msg[i].getFrom() [0]);
-                nouvMail.setExpediteur(String.valueOf(msg[i].getFrom() [0]));
-                nouvMail.setDestinataire(msg[i].getRecipients(Message.RecipientType.TO).getClass().getName());
-                System.out.println("Sujet = " + msg[i].getSubject());
-                nouvMail.setSujet(msg[i].getSubject());
+                if(mail == null)
+                    System.out.println("ALEDDD C VIDEEEE");
+                System.out.println("Expéditeur : " + mail.getFrom() [0]);
+                nouvMail.setExpediteur(String.valueOf(mail.getFrom() [0]));
+                nouvMail.setDestinataire(mail.getRecipients(Message.RecipientType.TO).getClass().getName());
+                System.out.println("Sujet = " + mail.getSubject());
+                nouvMail.setSujet(mail.getSubject());
                 //System.out.println("Date : " + msg[i].getSentDate());
 
                 // récupération du msg +  des éventuelles pièce jointe
-                if(msg[i].isMimeType("text/plain")) // si que texte
+                if(mail.isMimeType("text/plain")) // si que texte
                 {
-                    nouvMail.setTexte((String) msg[i].getContent());
+                    nouvMail.setTexte((String) mail.getContent());
                 }
-                if(msg[i].isMimeType("multipart/*")) // si pièce jointe ou  texte + pièce jointe
+                if(mail.isMimeType("multipart/*")) // si pièce jointe ou  texte + pièce jointe
                 {
-                    Multipart multipart = (Multipart) msg[i].getContent();
+                    Multipart multipart = (Multipart) mail.getContent();
 
 
 
@@ -106,6 +108,7 @@ public class MailReceive {
 
                 }
                 listeMail.add(nouvMail);
+                i++;
             }
             System.out.println("Fin des messages");
             return  listeMail;
