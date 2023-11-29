@@ -52,14 +52,28 @@ public class MailReceive {
             System.out.println("Nombre de nouveaux messages : " + f.getNewMessageCount());
 
             System.out.println("Liste des messages : ");
-            int i = 0;
+            int j = 0;
+
+            /*for (int i=0; i<msg.length; i++)
+            {
+                System.out.println("\n<nHeaders du message n°" + (i+1));
+                Enumeration e = msg[i].getAllHeaders();
+                Header h = (Header)e.nextElement();
+                while (e.hasMoreElements())
+                {
+                    System.out.println(h.getName() + " -- >" + h.getValue());
+                    h = (Header)e.nextElement();
+                }
+                System.out.println("Texte : " + (String)msg[i].getContent());
+            }*/
+
             for (Message mail : msg)
             {
                 Mail nouvMail = new Mail();
-                System.out.println("Message n° " + i);
+                System.out.println("Message n° " + j);
                 if(mail == null)
                     System.out.println("ALEDDD C VIDEEEE");
-                System.out.println("Expéditeur : " + mail.getFrom());
+                System.out.println("Expéditeur : " + mail.getFrom()[0]);
                 nouvMail.setExpediteur(String.valueOf(mail.getFrom() [0]));
                 nouvMail.setDestinataire(mail.getRecipients(Message.RecipientType.TO).getClass().getName());
                 System.out.println("Sujet = " + mail.getSubject());
@@ -78,9 +92,9 @@ public class MailReceive {
 
 
 
-                    for(i = 0; i < multipart.getCount(); i++)
+                    for(j = 0; j < multipart.getCount(); j++)
                     {
-                        BodyPart bodyPart = multipart.getBodyPart(i);
+                        BodyPart bodyPart = multipart.getBodyPart(j);
 
                         if(bodyPart.isMimeType("text/plain"))
                         {
@@ -108,7 +122,7 @@ public class MailReceive {
 
                 }
                 listeMail.add(nouvMail);
-                i++;
+                j++;
             }
             System.out.println("Fin des messages");
             return  listeMail;

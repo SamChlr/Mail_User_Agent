@@ -131,7 +131,9 @@ public class WindowMail extends JFrame{
         }
     }
     public void isConnected(){
+
         nouveauMailButton.setEnabled(true);
+        connexionButton.setEnabled(false);
     }
 
 }
